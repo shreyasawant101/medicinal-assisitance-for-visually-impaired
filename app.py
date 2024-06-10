@@ -34,12 +34,12 @@ def save_to_db(input_text, no_words, assistance_type, response):
     collection.insert_one(entry)
 
 def getLLamaresponse(input_text, no_words, assistance_type):
-    llm = CTransformers(model='models/llama-2-7b-chat.ggmlv3.q8_0.bin',
+    llm = CTransformers(model='models/custom_model.bin',
                         model_type='llama',
                         config={'max_new_tokens': 256, 'temperature': 0.01})
     # Prompt Template
     template = """
-        Provide medical assistance for {assistance_type} based on the input {input_text}
+        Provide customer assistance for {assistance_type} based on the input {input_text}
         within {no_words} words.
     """
 
@@ -71,12 +71,12 @@ def text_to_speech(text):
     engine.say(text)
     engine.runAndWait()
 
-st.set_page_config(page_title="Medical Assistance for Visually Impaired",
+st.set_page_config(page_title="AI Driven Customer Support System",
                    page_icon='🤖',
                    layout='centered',
                    initial_sidebar_state='collapsed')
 
-st.header("Medical Assistance: for Visually Impaired")
+st.header("AI Driven Customer Support System")
 
 # Initialize session state for response
 if "response" not in st.session_state:
@@ -96,7 +96,7 @@ with col1:
 
 with col2:
     assistance_type = st.radio('Select Assistance Type',
-                               ["Diagnosis", "Treatment", "Medication Info", "Symptoms"], index=0)
+                               ["Agriculture", "Healthcare", "Education"], index=0)
 
 submit = st.button("Generate")
 
